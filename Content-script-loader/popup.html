@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <head>
   <script src="Content.js"></script>
+  <link rel="stylesheet" href="ResetBasedStyles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h3><a href="rule34.xxx">RULE34</a> CONTENT PARSER</h3>
-  <p>You can input any link in textbox and wait when content automatically loading</p>
-  <input id="inputLink" type="textbox" placeholder="Link on any rule34 page" value="https://rule34.xxx/index.php?page=post&s=list&tags=female">
-  <button id=lastDownload>Download content</button>
+  <div class="wrapper">
+    <header class="header">
+      <div class="container">
+        <h3 class="title">
+          <a href="https://rule34.xxx/index.php" class="title"> RULE34</a> 
+          CONTENT PARSER
+        </h3>
+      </div>
+    </header>
+    <div class="content">
+      <div class="container">
+        <div class="content-description">
+          <p class="text">You can input any link in textbox and wait when content automatically loading</p>
+        </div>
+        <input id="inputLink" type="textbox" placeholder="Link on any rule34 page" value="https://rule34.xxx/index.php?page=post&s=list&tags=female">
+        <button id="download">Download content</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
