@@ -1,41 +1,66 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
 }
-
 .wrapper {
-    background-color: rgb(211, 136, 255);
+    background-color: #F9F9F9;
     padding: 10px 20px;
 }
-
 .container {
-    width: 300px;
+    width: 330px;
     margin: 0px 0px 5px 0px;
 }
-
 .title {
     font-size: 22px;
 }
-
 .text {
     line-height: 20px;
     text-align: justify;
 }
-
+.small * {
+    font-size: 16px;
+}
 .content-description {
     margin: 0px 0px 5px 0px;
 }
-
-#inputLink {
-    width: 100%;
-    margin: 0px 5px;
-    border: 1px black solid;
+.group-box {
+    padding: 2px 5px;
+    border: 1px gray solid;
+    border-radius: 2px;
     margin: 0px 0px 5px 0px;
 }
-
+.group-box legend {
+    font-size: 12px;
+    color: #4E4E4E;
+    padding: 5px 10px;
+}
+.input {
+    padding: 0px 5px;
+    width: 100%;
+    margin: 0px 5px;
+    background-color: transparent;
+    /* border: 1px black solid; */
+    margin: 0px 0px 5px 0px;
+    line-height: 25px;
+}
+.hide {
+    display: none;
+}
+.warning {
+    color: #D68910;
+}
+.successful{
+    color: #1E8449;
+}
 #download {
     font-size: 20px;
     margin: 0px 0px 5px 0px;
     padding: 5px 0px;
     width: 100%;
+    border: 1px gray solid;
+}
+#download:hover {
+    border: 1px black solid;
+}
+footer .container * {
+    text-align: center;
 }

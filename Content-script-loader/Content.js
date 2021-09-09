@@ -40,16 +40,15 @@ class SiteParser{
         if(remoteDocument !== null || remoteDocument !== undefined){
             const contentBlock = remoteDocument.querySelector(".content");
             htmlLinksOnViews = contentBlock.querySelectorAll(":scope > div > .thumb > a");
-            contentLinks = this.#getCurrentImageLink(htmlLinksOnViews);
+            const confirmedContent = this.#filterContent(htmlLinksOnViews);
+            contentLinks = this.#getCurrentImageLink(confirmedContent);
         }
         else throw new Error("НЕ УДАЛОСЬ ПОЛУЧИТЬ ДОКУМЕНТ С УКАЗАННОГО САЙТА");
         return contentLinks;
     }
     async parseCurrentViewAsImage(itemUrlOfContent){
         let imageLink = "";
-        console.log("Link on post", itemUrlOfContent);
         imageLink = await this.#getImageLink(itemUrlOfContent);
-        console.log("IMAGE LINK: ", imageLink);
         if(imageLink === null || imageLink === undefined)
             throw new Error(`ВОЗНИКЛА ОШИБКА ПРИ ПОЛУЧЕНИИ ССЫЛКИ НА ФАЙЛ РЕСУРСА ${itemUrlOfContent} ДЛЯ ТИПА IMAGE`);
         return imageLink;
@@ -57,7 +56,6 @@ class SiteParser{
 
     downloadCurrentFile(link) {
         try{
-            console.log("Download image by URL: ", link);
             chrome.downloads.download({
                 url: link
             });
@@ -94,7 +92,6 @@ class SiteParser{
         let imageLink = "";
         try{
             const rootImageDocument = await this.#getRemoteHtml(currentViewLink);
-            console.log("Root view doc", rootImageDocument);
             const imageTag = rootImageDocument.querySelector("#image");
             imageLink = imageTag.src;
         }
@@ -102,6 +99,32 @@ class SiteParser{
             console.error("[ERROR]: Received page wasn't has link on IMAGE!");
         }
         return imageLink;
+    }
+    #filterContent(contentList){
+        let confirmedContent = [];
+        console.log("INPUT CONTENT:", contentList.length);
+        for (let i = 0; i < contentList.length; i++) {
+            const contentTags = contentList[i].querySelector("img").alt.split(" ");
+            const containsBlockTags = this.#containsBlockTags(contentTags);
+            if(!containsBlockTags)
+                confirmedContent.push(contentList[i]);
+        }
+        console.log("OUTPUT CONTENT:", confirmedContent.length);
+        return confirmedContent;
+    }
+    #containsBlockTags(contentTags){
+        let containsBlockTag = false;
+        if(this.searchFilter && this.searchFilter.blockTags && arrayOfTags){
+            for (let j = 0; j < this.searchFilter.blockTags.length; j++) {
+                const blockTag = this.searchFilter.blockTags[j];
+                if(contentTags.includes(blockTag)){
+                    containsBlockTag = true;
+                    console.error(`Content is blocked! It Contains blocked tags: ${blockTag}`);
+                    break;
+                }
+            }
+        }
+        return containsBlockTag;
     }
 }
 
@@ -118,18 +141,38 @@ class SearchFilter{
     blockTags = [];
 }
 
-const rule34 = new Rule34Parser();
-const filter = new SearchFilter();
-// filter.tags =  ["fff", "asd", "1234"];
-filter.blockTags =  ["block-1", "block-2", "block-3"];
-rule34.useFilter(filter);
-rule34.parseContentLinksToList()
-.then(async function(listOfContent) {
-    console.log("List of current views links", listOfContent);
+function getClientBlockTags(){
+    let blockTags = null;
+    const textBox = document.querySelector(".block-tags");
+    const inputTagsString = textBox.value;
+    if(inputTagsString.length > 2){
+        blockTags = inputTagsString.split(" ");
+    }
+    return blockTags;
+}
+
+const downloadBtn = document.querySelector("#download");
+downloadBtn.addEventListener("click", async function(){
+    const parseLink = document.querySelector("#parseLink").value;
+    let blockTags = getClientBlockTags();
+    const rule34 = new Rule34Parser();
+    rule34.parseUrl = parseLink;
+    console.log(rule34.parseUrl);
+    const filter = new SearchFilter();
+    filter.blockTags = blockTags;
+    rule34.useFilter(filter);
+    const listOfContent = await rule34.parseContentLinksToList()
+    let imageCounter = 0;
+    console.log("START PARSE URL AND DOWNLOADING...");
     for (let i = 0; i < listOfContent.length; i++) {
         const imageUrl = await rule34.parseCurrentViewAsImage(listOfContent[i]);
-        console.log("Image URL", imageUrl);
-        if(imageUrl !== null || imageUrl !== undefined)
+        if(imageUrl !== null || imageUrl !== undefined){
             rule34.downloadCurrentFile(imageUrl);
+            imageCounter++;
+        }
     }
+    console.log("SUCCESS DOWNLOADED IMAGES IS", imageCounter);
 });
+
+
+
