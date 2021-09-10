@@ -82,6 +82,7 @@ footer .container * {
 .block-tag {
     border: 1px gray solid;
     padding: 2px 5px;
+    display: inline-block;
 }
 .around-small-btn {
     margin: 0px;

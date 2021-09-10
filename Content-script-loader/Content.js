@@ -174,10 +174,26 @@ downloadBtn.addEventListener("click", async function(){
     console.log("SUCCESS DOWNLOADED IMAGES IS", imageCounter);
 });
 
+let defBlockTagsMenuDisplay = document.querySelector(".block-tags-menu-container").style.display;
 const openBlockTagsMenu = document.querySelector("#open-block-tags-panel");
 openBlockTagsMenu.addEventListener("click", function(){
     const blockTagsMenu = document.querySelector(".block-tags-menu-container");
     if(blockTagsMenu.style.display === "none")
-        blockTagsMenu.style.display = "inline-block";
-    else blockTagsMenu.style.display = "none"
+        blockTagsMenu.style.display = defBlockTagsMenuDisplay;
+    else blockTagsMenu.style.display = "none";
+});
+
+const acceptNewBlockTagBtn = document.querySelector("#accept-new-block-tag-item");
+acceptNewBlockTagBtn.addEventListener("click", function(){
+    const newBlockTag = document.querySelector(".block-tags-menu").value;
+    if(newBlockTag){
+        console.log("ДОБАВЛЯЮ НОВЫЙ ТЕГ В БЛОК-ЛИСТ: ", newBlockTag);
+        const blockList = document.querySelector(".block-tags-list");
+        const blockTag = document.createElement("SPAN");
+        blockTag.innerText = newBlockTag;
+        blockTag.classList.add("block-tag");
+        blockTag.classList.add("text");
+        blockTag.style.margin = "0px 5px 0px 0px"
+        blockList.appendChild(blockTag);
+    }
 });
