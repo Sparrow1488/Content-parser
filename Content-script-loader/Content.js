@@ -174,5 +174,10 @@ downloadBtn.addEventListener("click", async function(){
     console.log("SUCCESS DOWNLOADED IMAGES IS", imageCounter);
 });
 
-
-
+const openBlockTagsMenu = document.querySelector("#open-block-tags-panel");
+openBlockTagsMenu.addEventListener("click", function(){
+    const blockTagsMenu = document.querySelector(".block-tags-menu-container");
+    if(blockTagsMenu.style.display === "none")
+        blockTagsMenu.style.display = "inline-block";
+    else blockTagsMenu.style.display = "none"
+});
