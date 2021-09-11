@@ -142,19 +142,62 @@ class SearchFilter{
 }
 
 function getClientBlockTags(){
-    let blockTags = null;
-    const textBox = document.querySelector(".block-tags");
-    const inputTagsString = textBox.value;
-    if(inputTagsString.length > 2){
-        blockTags = inputTagsString.split(" ");
+    const tagsList = [];
+    const tags = document.querySelectorAll(".block-tags-list > span");
+    for (const item of tags)
+        if(item.innerText)
+            tagsList.push(item.innerText);
+    return tagsList;
+}
+
+function saveBlockTags(blockedTags) {
+    chrome.storage.sync.set({"blockTags": blockedTags}, function() {
+        console.log('Value is set to ', blockedTags);
+    });
+}
+
+function getBlockTags() {
+    return new Promise(function(resolve, reject){
+        let tags;
+        chrome.storage.sync.get(['blockTags'], function(result) {
+            console.log('Value currently is ', result.blockTags);
+            if(result.blockTags){
+                resolve(result.blockTags);
+            }
+            else reject("ХУЕТА ЧЕЛ");
+        });
+    });
+    
+}
+
+function displayBlockTagsRange(listTags) {
+    const blockTagsList = document.querySelector(".block-tags-list");
+    blockTagsList.innerHTML = "";
+    listTags.forEach(tag => {
+        insertBlockTag(tag);
+    });
+}
+
+function insertBlockTag(tagValue) {
+    if(tagValue && tagValue !== " "){
+        const blockList = document.querySelector(".block-tags-list");
+        const blockTag = document.createElement("SPAN");
+        blockTag.innerText = tagValue;
+        blockTag.classList.add("block-tag");
+        blockTag.classList.add("text");
+        blockTag.style.margin = "0px 5px 0px 0px"
+        blockList.appendChild(blockTag);
     }
-    return blockTags;
 }
 
 const downloadBtn = document.querySelector("#download");
 downloadBtn.addEventListener("click", async function(){
     const parseLink = document.querySelector("#parseLink").value;
     let blockTags = getClientBlockTags();
+    if(blockTags){
+        saveBlockTags(blockTags);
+    }
+    blockTags = await getBlockTags();
     const rule34 = new Rule34Parser();
     rule34.parseUrl = parseLink;
     console.log(rule34.parseUrl);
@@ -167,7 +210,7 @@ downloadBtn.addEventListener("click", async function(){
     for (let i = 0; i < listOfContent.length; i++) {
         const imageUrl = await rule34.parseCurrentViewAsImage(listOfContent[i]);
         if(imageUrl !== null || imageUrl !== undefined){
-            rule34.downloadCurrentFile(imageUrl);
+            // rule34.downloadCurrentFile(imageUrl);
             imageCounter++;
         }
     }
@@ -185,15 +228,19 @@ openBlockTagsMenu.addEventListener("click", function(){
 
 const acceptNewBlockTagBtn = document.querySelector("#accept-new-block-tag-item");
 acceptNewBlockTagBtn.addEventListener("click", function(){
-    const newBlockTag = document.querySelector(".block-tags-menu").value;
-    if(newBlockTag){
-        console.log("ДОБАВЛЯЮ НОВЫЙ ТЕГ В БЛОК-ЛИСТ: ", newBlockTag);
-        const blockList = document.querySelector(".block-tags-list");
-        const blockTag = document.createElement("SPAN");
-        blockTag.innerText = newBlockTag;
-        blockTag.classList.add("block-tag");
-        blockTag.classList.add("text");
-        blockTag.style.margin = "0px 5px 0px 0px"
-        blockList.appendChild(blockTag);
-    }
+    const newBlockTagItem = document.querySelector(".block-tags-menu");
+    const newBlockTag = newBlockTagItem.value;
+    insertBlockTag(newBlockTag);
+    newBlockTagItem.value = "";
 });
+
+
+
+getBlockTags()
+.then(function(blockTags){
+    console.log("RECEIVED BLOCKED TAGS", blockTags);
+    if(blockTags){
+        displayBlockTagsRange(blockTags);
+    }
+})
+.catch(err => console.error("ERROR LOADING TAGS", err));
