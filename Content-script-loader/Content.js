@@ -185,7 +185,32 @@ function insertBlockTag(tagValue) {
         blockTag.innerText = tagValue;
         blockTag.classList.add("block-tag");
         blockTag.classList.add("text");
+        blockTag.style.alignItems = "center";
         blockTag.style.margin = "0px 5px 0px 0px"
+        const defBorderStyle = blockTag.style.border;
+
+        const deleteTagBtn = document.createElement("BUTTON");
+        
+        const insideImg = document.createElement("IMG");
+        insideImg.src = "/src/close_icon.png";
+        insideImg.style.width = "100%";
+        deleteTagBtn.appendChild(insideImg);
+        deleteTagBtn.style.padding = "2px";
+        deleteTagBtn.style.margin = "0px 2px 0px 5px";
+        deleteTagBtn.classList.add("around-small-btn");
+        deleteTagBtn.classList.add("delete-btn");
+        deleteTagBtn.addEventListener("click", function(){
+            blockList.removeChild(blockTag);
+        });
+        blockTag.appendChild(deleteTagBtn);
+        
+        blockTag.addEventListener("mouseout", function(){
+            blockTag.style.border = defBorderStyle;
+        });
+        blockTag.addEventListener("mouseover", function(){
+            blockTag.style.border = "1px black solid";
+        });
+        
         blockList.appendChild(blockTag);
     }
 }
@@ -244,3 +269,5 @@ getBlockTags()
     }
 })
 .catch(err => console.error("ERROR LOADING TAGS", err));
+
+const blockTagsHtml = document.querySelectorAll(".block-tag");
