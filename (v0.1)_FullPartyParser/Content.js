@@ -9,6 +9,7 @@ class SiteParser{
             return this.value;
         }
     }
+    
     parseUrl = {
         value: "http://site-url.com/currentPage",
         get(){
@@ -19,6 +20,7 @@ class SiteParser{
         },
         configurable: false
     }
+
     rootSiteUrl = {
         value: "http://site-url.com/",
         get(){
@@ -29,10 +31,12 @@ class SiteParser{
         },
         configurable: false
     }
+
     useFilter(searchFilter){
         if(searchFilter !== null || searchFilter !== undefined)
             this.searchFilter = searchFilter;
     }
+
     async parseContentLinksToList(parseUrl = this.parseUrl){
         let htmlLinksOnViews;
         let contentLinks;
@@ -46,6 +50,7 @@ class SiteParser{
         else throw new Error("НЕ УДАЛОСЬ ПОЛУЧИТЬ ДОКУМЕНТ С УКАЗАННОГО САЙТА");
         return contentLinks;
     }
+
     async parseCurrentViewAsImage(itemUrlOfContent){
         let imageLink = "";
         imageLink = await this.#getImageLink(itemUrlOfContent);
