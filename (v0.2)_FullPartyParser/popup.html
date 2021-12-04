@@ -7,74 +7,85 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrapper">
+  <div id="wrapper">
     <header class="header">
       <div class="container">
-        <img src="/src/header.png" style="width: 100%; margin: 0px 0px 5px 0px;" alt="">
-        <h3 class="title">
-          <a href="https://rule34.xxx/index.php" class="title">🔥RULE34</a> 
-          CONTENT PARSER
-        </h3>
+        <div class="header__cover">
+          <img src="/src/header.png" style="width: 100%; margin: 0px 0px 5px 0px;" alt="">
+        </div>
       </div>
     </header>
-    <div class="content">
+    <main class="main">
       <div class="container">
-        <div class="content-description">
-          <p class="text">You can input any link in textbox and wait when content automatically loading</p>
-        </div>
-        <div class="filters">
-          <fieldset class="group-box search-filter hide">
-            <legend>Search tags (while in develop)</legend>
-            <input class="search-tags input" type="textbox" value="female ass anal 1girl">
-          </fieldset>
-          <fieldset class="group-box block-filter">  
-            <legend>Block tags </legend>
-            <div class="group-box__row">
-              <div class="block-tags-list container" style="display: inline;">
-                <!-- <span class="block-tag text">furry</span>
-                <span class="block-tag text">fox</span>
-                <span class="block-tag text">red_fur</span>
-                <span class="block-tag text">blue_fur</span>
-                <span class="block-tag text">fur</span>
-                <span class="block-tag text">gay</span>
-                <span class="block-tag text">gay_sex</span>
-                <span class="block-tag text">trap</span>
-                <span class="block-tag text">2boys</span>
-                <span class="block-tag text">3boys</span>
-                <span class="block-tag text">big</span>
-                <span class="block-tag text">bear</span>
-                <span class="block-tag text">male_only</span>
-                <span class="block-tag text">male_penetrated</span> -->
-                <!-- furry fox red_fur blue_fur fur gay gay_sex trap 2boys 3boys big bear male_only male_penetrated -->
-              </div>
-              <div class="block-tags-menu-container">
-                <input class="block-tags-menu small-input" type="textbox" placeholder="Bad tag">
-                <button style="color: green;" id="accept-new-block-tag-item" class="around-small-btn">✓</button>
-              </div>
-              <button class="around-small-btn" id="open-block-tags-panel">+</button>
+        
+        <div class="b-main-settings">
+          <div class="b-block-tags">
+            <div class="b-block-tags__title">
+              <h3 class="subtitle">Block tags</h3>
             </div>
-          </fieldset>
-          <fieldset class="group-box parse-page">
-            <legend>Parse page</legend>
-            <input id="parseLink" class="input" type="textbox" placeholder="Link on any rule34 page">
-          </fieldset>
+            <a href="/" class="btn">Change</a>
+            <!-- <div class="b-block-tags__body">
+              <div class="block-tags-cells">
+                <div class="block-tags__cell">
+                  <span>Bad_tag</span>
+                </div>
+                <div class="block-tags__cell">
+                  <span>Bad_tag1</span>
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+          <div class="b-mods">
+            <div class="b-mods__title">
+              <h3 class="subtitle">Mods</h3>
+              <div class="b-mods__body">
+                <div class="mods-items">
+                  <div class="mods__item_active mods__item">
+                    <span>SuperMode-1</span>
+                  </div>
+                  <div class="mods__item">
+                    <span>SuperMode-2</span>
+                  </div>
+                  <div class="mods__item">
+                    <span>SuperMode-3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- b-main-settings  -->
+
+        <div class="b-preview">
+          <div class="b-preview-buttons">
+
+          </div>
+
+          <div class="b-preview-items">
+            <a href="#" class="preview__item">
+              <input class="preview-item__checkbox" type="checkbox">
+            </a>
+            <a href="#" class="preview__item">
+              <input class="preview-item__checkbox" type="checkbox">
+            </a>
+            <a href="#" class="preview__item">
+              <input class="preview-item__checkbox" type="checkbox">
+            </a>
+            <a href="#" class="preview__item"></a>
+            <a href="#" class="preview__item"></a>
+            <a href="#" class="preview__item"></a>
+            <a href="#" class="preview__item"></a>
+            <a href="#" class="preview__item"></a>
+          </div>
         </div>
-        <button id="download" class="btn">Download content</button>
+
+        <div class="b-download">
+          <div class="download__btn">
+            <a href="/" class="btn download">Download</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <footer>
-      <div class="container">
-        <p class="text small"><span class="warning">⚠️WARNING⚠️</span>
-          <br>
-          To avoid errors, please do not turn off the script menu until the download is complete
-          <br>
-        </p>
-        <p class="text small successful" style="margin: 15px 0px 0px 0px;">
-          made special for ♡Full party♡
-        </p>
-      </div>
-    </footer>
-  </div>
+    </main>
 
   <script src="JQuery/jquery-3.6.0.min.js"></script>
   <script src="main.js"></script>
