@@ -1,6 +1,61 @@
+// TODO:
+// 1. Получение preview коллекции с сайта
+// 2. Их загрузка в preview list в парсере
+// 3. Создание коллекции с загружаемым содержимым
+// 4. Получение с сайта выбранного содержимого
+// 5. Создание коллекции с ссылками на содержимое
+// 6. Загрузка blob файлов на компьютер (по возможности загрузить в папку с именем автора (тега))
+
 $(document).ready(function () {
-    
+    const parser = new GelbooruParser();
+    parser.getFullFiles();
 });
+
+
+class Parser {
+    searchFilter = {
+        blockTags : []
+    };
+    site = {
+        value : "",
+        get : () => value,
+        // #set : (val) => value = val
+    };
+    getPreviewAsync(pageLink);
+    getFullFiles(previewLink)
+}
+
+class GelbooruParser extends Parser {
+    constructor(){
+        super.getFullFiles() = getFullFiles;
+    }
+}
+
+function getFullFiles(){
+    console.log("Я хочу получить все файлы");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // // ПОИДЕЕ ЭТОТ КЛАСС ДОЛЖЕН БЫТЬ АБСТРАКТНЫМ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
