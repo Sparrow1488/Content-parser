@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Sparrow.Parsing.Example/1.0.0": {
+        "dependencies": {
+          "Sparrow.Parsing.Utils": "1.0.0"
+        },
+        "runtime": {
+          "Sparrow.Parsing.Example.dll": {}
+        }
+      },
+      "Sparrow.Parsing.Utils/1.0.0": {
+        "runtime": {
+          "Sparrow.Parsing.Utils.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Sparrow.Parsing.Example/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sparrow.Parsing.Utils/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

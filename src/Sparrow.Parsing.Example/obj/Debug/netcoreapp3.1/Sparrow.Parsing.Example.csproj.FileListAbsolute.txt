@@ -1,0 +1,17 @@
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Example.exe
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Example.deps.json
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Example.runtimeconfig.json
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Example.runtimeconfig.dev.json
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Example.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Example.pdb
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Utils.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\bin\Debug\netcoreapp3.1\Sparrow.Parsing.Utils.pdb
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.csproj.AssemblyReference.cache
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.AssemblyInfoInputs.cache
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.AssemblyInfo.cs
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.csproj.CoreCompileInputs.cache
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.csproj.CopyComplete
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.pdb
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Example\obj\Debug\netcoreapp3.1\Sparrow.Parsing.Example.genruntimeconfig.cache
