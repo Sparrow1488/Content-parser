@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\Examples\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj": {}
+    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\Examples\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj": {
+    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\Examples\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj",
+        "projectUniqueName": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj",
         "projectName": "Sparrow.Parsing.Example",
-        "projectPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\Examples\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj",
+        "projectPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj",
         "packagesPath": "C:\\Users\\aleks\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\Examples\\Sparrow.Parsing.Example\\obj\\",
+        "outputPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Example\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

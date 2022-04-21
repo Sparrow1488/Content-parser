@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sparrow.Parsing.Utils\Sparrow.Parsing.Utils.csproj" />
+    <ProjectReference Include="..\..\src\Sparrow.Parsing.Utils\Sparrow.Parsing.Utils.csproj" />
   </ItemGroup>
 
 </Project>
