@@ -49,5 +49,5 @@ public abstract Task ProcessAsync(TResult toProcess);
 
 ## References
 
-* [Проект, используемый в примере](https://github.com/Sparrow1488/Sparrow.Parsing.Utils/tree/master/src/Sparrow.Parsing.Example)
+* [Проект, используемый в примере](C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example)
 
