@@ -1,6 +1,7 @@
 ﻿using Sparrow.Parsing.Example.Middlewares;
 using Sparrow.Parsing.Example.Sources;
 using Sparrow.Parsing.Utils;
+using System;
 using System.Threading.Tasks;
 
 namespace Sparrow.Parsing.Example
@@ -15,6 +16,7 @@ namespace Sparrow.Parsing.Example
                           .Use<NewsParsingMiddleware>()
                           .Use<ProductsParsingMiddleware>();
             var resultEntity = await pipe.StartAsync();
+            Console.WriteLine(resultEntity);
         }
     }
 }

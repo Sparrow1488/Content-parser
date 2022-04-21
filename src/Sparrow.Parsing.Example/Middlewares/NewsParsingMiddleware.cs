@@ -8,13 +8,9 @@ namespace Sparrow.Parsing.Example.Middlewares
 {
     internal class NewsParsingMiddleware : ParsingMiddleware<MicrosoftEntity, MicrosoftSource>
     {
-        public override void Process(MicrosoftEntity toProcess) =>
-            throw new NotImplementedException();
-
         public override async Task ProcessAsync(MicrosoftEntity toProcess)
         {
             toProcess.Guid = Guid.NewGuid();
-            toProcess.Author = "Sparrow";
 
             var document = (IHtmlDocument)Context.ServiceProvider.GetService(typeof(IHtmlDocument));
             var newsElements = document.QuerySelectorAll(".m-content-placement-item");

@@ -6,7 +6,7 @@ namespace Sparrow.Parsing.Utils
     {
         protected MiddlewareContext<TResult, TSource> Context { get; private set; }
 
-        public abstract void Process(TResult toProcess);
+        public virtual void Process(TResult toProcess) => ProcessAsync(toProcess).ConfigureAwait(false);
         public abstract Task ProcessAsync(TResult toProcess);
 
         protected void InvokeNext(

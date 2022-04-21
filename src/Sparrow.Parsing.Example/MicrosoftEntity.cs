@@ -15,8 +15,11 @@ namespace Sparrow.Parsing.Example
         public List<MicrosoftProduct> Products { get; set; }
         public List<MicrosoftNews> News { get; set; }
 
-        public string Description { get; set; }
-        public string Author { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public override string ToString()
+        {
+            return $"Total News: {News.Count}\nTotal Products: {Products.Count}\nCreated at: {CreatedAt}";
+        }
     }
 }
