@@ -1,4 +1,7 @@
-﻿namespace Sparrow.Parsing.Utils
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+
+namespace Sparrow.Parsing.Utils
 {
     public class MiddlewareContext<TResult, TSource>
     {
@@ -8,9 +11,12 @@
         {
             Next = next;
             Source = source;
+            Services = new ServiceCollection();
         }
 
         public ParsingMiddleware<TResult, TSource> Next { get; }
-        public TSource Source { get; }
+        public IServiceCollection Services { get; internal set; }
+        public IServiceProvider ServiceProvider => Services.BuildServiceProvider();
+        public TSource Source { get; internal set; }
     }
 }

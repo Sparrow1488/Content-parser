@@ -6,20 +6,19 @@ namespace Sparrow.Parsing.Utils
     {
         protected MiddlewareContext<TResult, TSource> Context { get; private set; }
 
-        public abstract void Process(TResult toProcess, TSource source);
-        public abstract Task ProcessAsync(TResult toProcess, TSource source);
+        public abstract void Process(TResult toProcess);
+        public abstract Task ProcessAsync(TResult toProcess);
 
         protected void InvokeNext(
-            TResult toProcess,
-            TSource source) => Context.Next?.Process(toProcess, source);
+            TResult toProcess) => Context.Next?.Process(toProcess);
 
         protected async Task InvokeNextAsync(
-            TResult toProcess,
-            TSource source)
+            TResult toProcess)
         {
             if (Context.Next != null)
             {
-                await Context.Next.ProcessAsync(toProcess, source);
+                Context.Next.Context.Services = Context.Services;
+                await Context.Next.ProcessAsync(toProcess);
             }
         }
 

@@ -1,4 +1,6 @@
 ﻿using AngleSharp.Html.Parser;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Sparrow.Parsing.Example.Sources;
 using Sparrow.Parsing.Utils;
 using System;
@@ -8,10 +10,10 @@ namespace Sparrow.Parsing.Example.Middlewares
 {
     internal class InitializerMiddleware : ParsingMiddleware<MicrosoftEntity, MicrosoftSource>
     {
-        public override void Process(MicrosoftEntity toProcess, MicrosoftSource source) =>
+        public override void Process(MicrosoftEntity toProcess) =>
             throw new NotImplementedException();
 
-        public override async Task ProcessAsync(MicrosoftEntity toProcess, MicrosoftSource source)
+        public override async Task ProcessAsync(MicrosoftEntity toProcess)
         {
             // получить страничку сайта
             // произвести авторизацию - получить кукисы
@@ -19,9 +21,13 @@ namespace Sparrow.Parsing.Example.Middlewares
             // получить данные и сохранить их в (абстрактно) контекст для передачи его в другие middlewares
             // короче подготовить почву и смачно вывалить все в контекст
 
-            var sourceText = await source.GetTextAsync();
+            var sourceText = await Context.Source.GetTextAsync();
             var parser = new HtmlParser();
             var document = await parser.ParseDocumentAsync(sourceText);
+            Context.Services.AddSingleton(document);
+
+            await InvokeNextAsync(toProcess);
+
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Sparrow.Parsing.Utils
             }
 
             var firstMiddleware = _middlewares.First();
-            await firstMiddleware.ProcessAsync(resultEntity, _source);
+            await firstMiddleware.ProcessAsync(resultEntity);
             return resultEntity;
         }
 

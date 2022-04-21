@@ -37,12 +37,12 @@ namespace Sparrow.Parsing.Example.Sources
         public async Task<string> GetTextAsync()
         {
             string text = string.Empty;
-            using (var stream = (MemoryStream)await GetAsync())
+            using (var client = new HttpClient())
             {
-                using (var sr = new StreamReader(stream))
-                {
-                    text = await sr.ReadToEndAsync();
-                }
+                var message = new HttpRequestMessage(HttpMethod.Get, _endPoint);
+                var response = await client.SendAsync(message);
+                text = await response.Content.ReadAsStringAsync();
+                _isReceived = true;
             }
             return text;
         }

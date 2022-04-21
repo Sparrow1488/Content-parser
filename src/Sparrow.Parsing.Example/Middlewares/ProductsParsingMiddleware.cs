@@ -7,18 +7,17 @@ namespace Sparrow.Parsing.Example.Middlewares
 {
     internal class ProductsParsingMiddleware : ParsingMiddleware<MicrosoftEntity, MicrosoftSource>
     {
-        public override void Process(MicrosoftEntity toProcess, MicrosoftSource source) =>
+        public override void Process(MicrosoftEntity toProcess) =>
             throw new NotImplementedException();
 
-        public override async Task ProcessAsync(MicrosoftEntity toProcess, MicrosoftSource source)
+        public override async Task ProcessAsync(MicrosoftEntity toProcess)
         {
             SomeLogic(toProcess);
-            await InvokeNextAsync(toProcess, source);
+            await InvokeNextAsync(toProcess);
         }
 
         private void SomeLogic(MicrosoftEntity toProcess)
         {
-            toProcess.Description = "Some description from Microsoft site";
             toProcess.CreatedAt = DateTime.UtcNow;
         }
     }
