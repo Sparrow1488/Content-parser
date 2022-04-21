@@ -11,7 +11,8 @@ namespace Sparrow.Parsing.Example
         {
             var source = new MicrosoftSource("https://www.microsoft.com/ru-ru/");
             var pipe = new ParsingPipeline<MicrosoftEntity, MicrosoftSource>(source)
-                          .Use<TitlesParsingMiddleware>()
+                          .Use<InitializerMiddleware>()
+                          .Use<NewsParsingMiddleware>()
                           .Use<ProductsParsingMiddleware>();
             var resultEntity = await pipe.StartAsync();
         }
