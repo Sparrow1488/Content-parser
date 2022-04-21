@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Sparrow.Parsing.Example
+namespace Sparrow.Parsing.Example.Sources
 {
     public class MicrosoftSource : IParsingSource
     {
@@ -17,7 +17,7 @@ namespace Sparrow.Parsing.Example
 
         public IEnumerable<IParsingSource> Bindings => Array.Empty<IParsingSource>();
 
-        public async Task<string> ParseAsync()
+        public async Task<string> GetAsync()
         {
             string sourceResponse = string.Empty;
             using (var client = new HttpClient())

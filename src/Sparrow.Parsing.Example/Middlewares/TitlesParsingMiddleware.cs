@@ -1,16 +1,14 @@
-﻿using Sparrow.Parsing.Utils;
+﻿using Sparrow.Parsing.Example.Sources;
+using Sparrow.Parsing.Utils;
 using System;
 using System.Threading.Tasks;
 
-namespace Sparrow.Parsing.Example
+namespace Sparrow.Parsing.Example.Middlewares
 {
-    public class TitlesParsingMiddleware : ParsingMiddleware<MicrosoftEntity, MicrosoftSource>
+    internal class TitlesParsingMiddleware : ParsingMiddleware<MicrosoftEntity, MicrosoftSource>
     {
-        public override void Process(MicrosoftEntity toProcess, MicrosoftSource source)
-        {
-            SomeLogic(toProcess);
-            InvokeNext(toProcess, source);
-        }
+        public override void Process(MicrosoftEntity toProcess, MicrosoftSource source) =>
+            throw new NotImplementedException();
 
         public override async Task ProcessAsync(MicrosoftEntity toProcess, MicrosoftSource source)
         {

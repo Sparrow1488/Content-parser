@@ -26,21 +26,7 @@ namespace Sparrow.Parsing.Utils
             return this;
         }
 
-        public TResult Start()
-        {
-            //CreateMiddlewares();
-            //var resultEntity = Activator.CreateInstance<TResult>();
-            //for (int i = 0; i < _middlewaresTypes.Count; i++)
-            //{
-            //    var currentMiddleware = _middlewares[i];
-            //    if (HasNext(i, _middlewares.Count))
-            //        currentMiddleware.SetNext(_middlewares[i + 1]);
-
-            //    currentMiddleware.Process(resultEntity, _source);
-            //}
-            //return resultEntity;
-            throw new NotImplementedException();
-        }
+        public TResult Start() => throw new NotImplementedException();
 
         public async Task<TResult> StartAsync()
         {
@@ -50,7 +36,8 @@ namespace Sparrow.Parsing.Utils
             {
                 var currentMiddleware = _middlewares[i];
                 if (HasNext(i, _middlewares.Count))
-                    currentMiddleware.SetNext(_middlewares[i + 1]);
+                    currentMiddleware.SetContext(new MiddlewareContext<TResult, TSource>(_middlewares[i + 1], _source));
+                else currentMiddleware.SetContext(new MiddlewareContext<TResult, TSource>(null, _source));
             }
 
             var firstMiddleware = _middlewares.First();

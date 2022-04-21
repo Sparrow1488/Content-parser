@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj": {}
+    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj": {
+    "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj",
+        "projectUniqueName": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj",
         "projectName": "Sparrow.Parsing.Utils",
-        "projectPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj",
+        "projectPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils.csproj",
         "packagesPath": "C:\\Users\\aleks\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\Sparrow.Parsing.Utils\\obj\\",
+        "outputPath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Utils\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

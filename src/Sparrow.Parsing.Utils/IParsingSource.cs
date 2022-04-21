@@ -5,7 +5,7 @@ namespace Sparrow.Parsing.Utils
 {
     public interface IParsingSource
     {
-        Task<string> ParseAsync();
+        Task<string> GetAsync();
         public IEnumerable<IParsingSource> Bindings { get; }
     }
 }
