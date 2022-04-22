@@ -12,15 +12,9 @@ namespace Sparrow.Parsing.Example.Nude.Sources
 {
     internal class NudeSource : ITextParsingSource, IAuthorizableParsingSource
     {
-        public NudeSource(AccessPermission access)
+        public NudeSource(HttpClientWrapper wrapper)
         {
-            _httpClient = new HttpClientWrapper();
-            _access = access;
-        }
-
-        public NudeSource()
-        {
-            _httpClient = new HttpClientWrapper();
+            _httpClient = wrapper;
         }
 
         private bool _isReceived = false;

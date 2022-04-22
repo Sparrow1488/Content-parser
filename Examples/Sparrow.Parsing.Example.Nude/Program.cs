@@ -3,6 +3,7 @@ using Serilog;
 using Sparrow.Parsing.Example.Nude.Entities;
 using Sparrow.Parsing.Example.Nude.Helpers;
 using Sparrow.Parsing.Example.Nude.Middlewares;
+using Sparrow.Parsing.Example.Nude.Providers;
 using Sparrow.Parsing.Example.Nude.Sources;
 using Sparrow.Parsing.Utils;
 using System.Collections.Generic;
@@ -17,8 +18,7 @@ namespace Sparrow.Parsing.Example.Nude
         private static async Task Main()
         {
             ConfigureLogger();
-            var nudeSource = new NudeSource();
-            var pipe = new ParsingPipeline<List<NudeMangaItem>, NudeSource>(nudeSource)
+            var pipe = new ParsingPipeline<List<NudeMangaItem>, NudeSource>()
                           .HandleAll<ExceptionHandleMiddleware>()
                           .Use<InitializeMiddleware>()
                           .Use<PagesParsingMiddleware>()
@@ -28,6 +28,7 @@ namespace Sparrow.Parsing.Example.Nude
                           .OnHostBuilding(host => host.UseSerilog())
                           .WithServices(services => 
                           {
+                              services.AddSingleton<HttpClientWrapper>();
                               services.AddSingleton(permission => GetAccessPermission());
                               services.AddTransient<QueryHelper>();
                           });

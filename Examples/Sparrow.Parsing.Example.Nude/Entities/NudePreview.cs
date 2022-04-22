@@ -2,11 +2,10 @@
 
 namespace Sparrow.Parsing.Example.Nude.Entities
 {
-    internal class NudePreviewCard
+    internal class NudePreview
     {
         public string Title { get; set; }
         public string MainSource { get; set; }
         public string PreviewImage { get; set; }
-        public List<string> Tags { get; } = new List<string>();
     }
 }

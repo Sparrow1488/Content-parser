@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Microsoft.Extensions.Logging;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ namespace Sparrow.Parsing.Example.Nude.Providers
 {
     internal class HttpClientWrapper
     {
-        public HttpClientWrapper() 
+        public HttpClientWrapper(ILogger<HttpClientWrapper> logger = default) 
         {
             Cookies = new CookieContainer();
             Cookies.Add(new Cookie("fusion_visited", "yes", "/", "nude-moon.net"));
@@ -20,7 +21,10 @@ namespace Sparrow.Parsing.Example.Nude.Providers
             Cookies.Add(new Cookie("_gat_gtag_UA_51634583_1", "1", "/", "nude-moon.net"));
             Cookies.Add(new Cookie("fusion_user", "446221.ad21f16c541e88e36b390a7b3b863086", "/", "nude-moon.net"));
             Cookies.Add(new Cookie("_ga_4Y96K6THGH", "GS1.1.1650557160.1.1.1650557561.0", "/", "nude-moon.net"));
+            _logger = logger;
         }
+
+        private readonly ILogger<HttpClientWrapper> _logger;
 
         public CookieContainer Cookies { get; private set; }
 
@@ -34,7 +38,7 @@ namespace Sparrow.Parsing.Example.Nude.Providers
 
             using (var client = CreateHttpClient())
             {
-                System.Console.WriteLine("GET => " + request.RequestUri.ToString());
+                _logger?.LogInformation("GET => " + request.RequestUri.ToString());
                 message = await client.SendAsync(request, cancellationToken);
             }
             return message;

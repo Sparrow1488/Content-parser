@@ -1,18 +1,18 @@
 ﻿using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Sparrow.Parsing.Example.Nude.Entities;
-using Sparrow.Parsing.Example.Nude.Sources;
-using Sparrow.Parsing.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Sparrow.Parsing.Example.Nude.Middlewares
 {
-    internal class PagesParsingMiddleware : ParsingMiddleware<List<NudeMangaItem>, NudeSource>
+    internal class PagesParsingMiddleware : NudeMiddlewareBase
     {
+        public PagesParsingMiddleware(ILogger<NudeMiddlewareBase> logger) : base(logger) { }
+
         public override async Task ProcessAsync(List<NudeMangaItem> toProcess)
         {
             var html = await Context.Source.GetTextAsync();
@@ -26,7 +26,7 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
                 document = await parser.ParseDocumentAsync(html);
                 Context.Services.AddSingleton(document);
 
-                Console.WriteLine($"Обрабатываемс {i}/{totalPages}");
+                logger.LogInformation($"Обрабатываемс {i}/{totalPages}");
                 await InvokeNextAsync(toProcess);
             }
         }

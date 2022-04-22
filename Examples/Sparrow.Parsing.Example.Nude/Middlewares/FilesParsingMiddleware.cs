@@ -1,16 +1,17 @@
 ﻿using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
+using Microsoft.Extensions.Logging;
 using Sparrow.Parsing.Example.Nude.Entities;
-using Sparrow.Parsing.Example.Nude.Sources;
-using Sparrow.Parsing.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Sparrow.Parsing.Example.Nude.Middlewares
 {
-    internal class FilesParsingMiddleware : ParsingMiddleware<List<NudeMangaItem>, NudeSource>
+    internal class FilesParsingMiddleware : NudeMiddlewareBase
     {
+        public FilesParsingMiddleware(ILogger<NudeMiddlewareBase> logger) : base(logger) { }
+
         public override async Task ProcessAsync(List<NudeMangaItem> toProcess)
         {
             var mangaDocument = (IHtmlDocument)Context.ServiceProvider.GetService(typeof(IHtmlDocument));

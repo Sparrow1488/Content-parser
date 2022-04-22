@@ -9,45 +9,48 @@ namespace Sparrow.Parsing.Utils
 {
     public sealed class ParsingPipeline<TResult, TSource>
     {
-        public ParsingPipeline(TSource source)
+        public ParsingPipeline(TSource source = default)
         {
             _source = source;
-            _middlewares = new List<ParsingMiddleware<TResult, TSource>>();
+            _hostBuilder = Host.CreateDefaultBuilder();
             _middlewaresTypes = new List<Type>();
-            _middlewaresInitServices = new ServiceCollection();
-            _host = Host.CreateDefaultBuilder();
+            _middlewares = new List<ParsingMiddleware<TResult, TSource>>();
         }
 
-        private readonly TSource _source;
-        private readonly IHostBuilder _host;
-        private IList<Type> _middlewaresTypes;
+        private TSource _source;
+        private IHost _host;
+        private readonly IHostBuilder _hostBuilder;
+        private readonly List<Type> _middlewaresTypes;
         private IList<ParsingMiddleware<TResult, TSource>> _middlewares;
-        private IServiceCollection _middlewaresInitServices;
 
         public ParsingPipeline<TResult, TSource> Use<TMiddleware>()
             where TMiddleware : ParsingMiddleware<TResult, TSource>
         {
-            _middlewaresInitServices.AddSingleton<TMiddleware>();
             _middlewaresTypes.Add(typeof(TMiddleware));
+            //_hostBuilder.ConfigureServices(services => services.AddSingleton<TMiddleware>());
             return this;
         }
 
         public ParsingPipeline<TResult, TSource> OnHostBuilding(Action<IHostBuilder> host)
         {
-            host?.Invoke(_host);
+            host?.Invoke(_hostBuilder);
             return this;
         }
 
         public ParsingPipeline<TResult, TSource> WithServices(Action<IServiceCollection> services)
         {
-            services?.Invoke(_middlewaresInitServices);
+            _hostBuilder.ConfigureServices(hostServices =>
+            {
+                services?.Invoke(hostServices);
+            });
             return this;
         }
 
         public ParsingPipeline<TResult, TSource> HandleAll<THandler>()
             where THandler : IExceptionHandleMiddlewareBase
         {
-            _middlewaresInitServices.AddSingleton(typeof(IExceptionHandleMiddlewareBase), typeof(THandler));
+            _hostBuilder.ConfigureServices(services => 
+                    services.AddSingleton(typeof(IExceptionHandleMiddlewareBase), typeof(THandler)));
             return this;
         }
 
@@ -55,7 +58,7 @@ namespace Sparrow.Parsing.Utils
 
         public async Task<TResult> StartAsync()
         {
-            CreateMiddlewares();
+            InitializePipeline();
             var resultEntity = Activator.CreateInstance<TResult>();
             for (int i = 0; i < _middlewares.Count; i++)
             {
@@ -65,7 +68,7 @@ namespace Sparrow.Parsing.Utils
                     context = new MiddlewareContext<TResult, TSource>(_middlewares[i + 1], _source);
                 else context = new MiddlewareContext<TResult, TSource>(null, _source);
 
-                context.Services = _middlewaresInitServices;
+                context.Services = new ServiceCollection();
                 currentMiddleware.SetContext(context);
             }
 
@@ -74,14 +77,16 @@ namespace Sparrow.Parsing.Utils
             return resultEntity;
         }
 
-        private void CreateMiddlewares()
+        private void InitializePipeline()
         {
-            var host = _host.ConfigureServices(services => services = _middlewaresInitServices).Build();
+            var host = _hostBuilder.Build();
             foreach (var type in _middlewaresTypes)
             {
                 var instance = (ParsingMiddleware<TResult, TSource>)ActivatorUtilities.CreateInstance(host.Services, type);
                 _middlewares.Add(instance);
             }
+
+            _source = ActivatorUtilities.CreateInstance<TSource>(host.Services);
         }
 
         private bool HasNext(int current, int total)
