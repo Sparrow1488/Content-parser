@@ -49,7 +49,7 @@ namespace Sparrow.Parsing.Example.Nude
         private static void ConfigureLogger()
         {
             Log.Logger = new LoggerConfiguration()
-                        .MinimumLevel.Debug()
+                        .MinimumLevel.Information()
                         .WriteTo.Console(theme: AnsiConsoleTheme.Code)
                         .CreateLogger();
         }

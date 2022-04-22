@@ -27,8 +27,6 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
                 document = await parser.ParseDocumentAsync(html);
                 Context.Services.AddSingleton(document);
 
-                throw new Exception("Че произошло?");
-
                 logger.LogInformation($"Обрабатываем страницу {i}/{totalPages}");
                 await InvokeNextAsync(toProcess);
                 WriteInfo(toProcess);
@@ -48,9 +46,9 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
         private void WriteInfo(List<NudeMangaItem> toProcess)
         {
             Console.WriteLine();
-            logger?.LogDebug("Итого: " + toProcess.Count);
-            logger?.LogDebug("Без изображений: " + toProcess.Count(x => !x?.Images?.Any() ?? false));
-            logger?.LogDebug("С изображениями: " + toProcess.Count(x => x?.Images?.Any() ?? false));
+            logger?.LogInformation("Итого: " + toProcess.Count);
+            logger?.LogInformation("Можно скачать изображения: " + toProcess.Count(x => x?.Images?.Any() ?? false));
+            Console.WriteLine();
         }
     }
 }

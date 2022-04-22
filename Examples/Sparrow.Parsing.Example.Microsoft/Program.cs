@@ -19,7 +19,8 @@ namespace Sparrow.Parsing.Example
                           .Use<NewsParsingMiddleware>()
                           .Use<ProductsParsingMiddleware>();
             var resultEntity = await pipe.StartAsync();
-            Console.WriteLine(resultEntity);
+            Console.WriteLine("Статус выполнения: " + resultEntity.Status);
+            Console.WriteLine(resultEntity.Content);
         }
     }
 }
