@@ -69,3 +69,9 @@ C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Exam
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\AngleSharp.dll
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
 C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\Serilog.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\Serilog.Settings.Configuration.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\Serilog.Sinks.Console.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\Serilog.Extensions.Hosting.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\Examples\Sparrow.Parsing.Example.Nude\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.dll

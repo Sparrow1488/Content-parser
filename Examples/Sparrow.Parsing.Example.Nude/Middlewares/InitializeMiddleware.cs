@@ -1,28 +1,27 @@
 ﻿using AngleSharp.Html.Parser;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Sparrow.Parsing.Example.Nude.Entities;
-using Sparrow.Parsing.Example.Nude.Sources;
-using Sparrow.Parsing.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Sparrow.Parsing.Example.Nude.Middlewares
 {
-    internal class InitializeMiddleware : ParsingMiddleware<List<NudeMangaItem>, NudeSource>
+    internal class InitializeMiddleware : NudeMiddlewareBase
     {
-        public InitializeMiddleware(IConfiguration config) =>
-            _config = config;
-
-        private readonly IConfiguration _config;
+        public InitializeMiddleware(ILogger<NudeMiddlewareBase> logger) : base(logger) { }
 
         public override async Task ProcessAsync(List<NudeMangaItem> toProcess)
         {
+            logger.LogInformation(nameof(InitializeMiddleware) + " начал инициализацию");
             await Context.Source.AuthorizeAsync();
-
             Context.Services.AddSingleton<IHtmlParser, HtmlParser>();
+            logger.LogInformation(nameof(InitializeMiddleware) + " инициализацию закончил");
 
             await InvokeNextAsync(toProcess);
+
+            logger.LogInformation(nameof(InitializeMiddleware) + " инициализацию закончил");
         }
     }
 }

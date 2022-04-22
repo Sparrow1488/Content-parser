@@ -15,9 +15,11 @@ namespace Sparrow.Parsing.Utils
             _middlewares = new List<ParsingMiddleware<TResult, TSource>>();
             _middlewaresTypes = new List<Type>();
             _middlewaresInitServices = new ServiceCollection();
+            _host = Host.CreateDefaultBuilder();
         }
 
         private readonly TSource _source;
+        private readonly IHostBuilder _host;
         private IList<Type> _middlewaresTypes;
         private IList<ParsingMiddleware<TResult, TSource>> _middlewares;
         private IServiceCollection _middlewaresInitServices;
@@ -27,6 +29,12 @@ namespace Sparrow.Parsing.Utils
         {
             _middlewaresInitServices.AddSingleton<TMiddleware>();
             _middlewaresTypes.Add(typeof(TMiddleware));
+            return this;
+        }
+
+        public ParsingPipeline<TResult, TSource> OnHostBuilding(Action<IHostBuilder> host)
+        {
+            host?.Invoke(_host);
             return this;
         }
 
@@ -68,7 +76,7 @@ namespace Sparrow.Parsing.Utils
 
         private void CreateMiddlewares()
         {
-            var host = Host.CreateDefaultBuilder().ConfigureServices(services => services = _middlewaresInitServices).Build();
+            var host = _host.ConfigureServices(services => services = _middlewaresInitServices).Build();
             foreach (var type in _middlewaresTypes)
             {
                 var instance = (ParsingMiddleware<TResult, TSource>)ActivatorUtilities.CreateInstance(host.Services, type);

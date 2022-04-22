@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using Sparrow.Parsing.Example.Nude.Entities;
 using Sparrow.Parsing.Example.Nude.Helpers;
 using Sparrow.Parsing.Example.Nude.Middlewares;
@@ -15,16 +16,19 @@ namespace Sparrow.Parsing.Example.Nude
     {
         private static async Task Main()
         {
+            ConfigureLogger();
             var nudeSource = new NudeSource();
             var pipe = new ParsingPipeline<List<NudeMangaItem>, NudeSource>(nudeSource)
+                          .HandleAll<ExceptionHandleMiddleware>()
                           .Use<InitializeMiddleware>()
                           .Use<PagesParsingMiddleware>()
                           .Use<PreviewsParsingMiddleware>()
                           .Use<MangaParsingMiddleware>()
                           .Use<FilesParsingMiddleware>()
+                          .OnHostBuilding(host => host.UseSerilog())
                           .WithServices(services => 
                           {
-                              services.AddSingleton<AccessPermission>(permission => GetAccessPermission());
+                              services.AddSingleton(permission => GetAccessPermission());
                               services.AddTransient<QueryHelper>();
                           });
             var result = await pipe.StartAsync();
@@ -36,6 +40,14 @@ namespace Sparrow.Parsing.Example.Nude
             var login = lines[0];
             var password = lines[1];
             return new AccessPermission(login, password, remember: true);
+        }
+
+        private static void ConfigureLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                        .MinimumLevel.Debug()
+                        .WriteTo.Console()
+                        .CreateLogger();
         }
     }
 }
