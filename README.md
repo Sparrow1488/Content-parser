@@ -49,6 +49,51 @@ public virtual void Process(TResult toProcess) =>
 public abstract Task ProcessAsync(TResult toProcess);
 ```
 
+### Features 1.0
+
+И наконец то появилась возможность внедрения зависимостей собственные `ParsingMiddlewares`
+
+```C#
+var nudeSource = new MeSource();
+var pipe = new ParsingPipeline<List<MeMangaItem>, NudeSource>(meSource)
+              .Use<InitializeMiddleware>()
+              .Use<PagesParsingMiddleware>()
+              .Use<PreviewsParsingMiddleware>()
+              .Use<MangaParsingMiddleware>()
+              .Use<FilesParsingMiddleware>()
+              .WithServices(services => 
+              { 
+                  services.AddTransient<QueryHelper>(); 
+              });
+var result = await pipe.StartAsync();
+```
+
+Конечно же теперь есть возможность внедрять в сами обработчики зависимости
+
+```C#
+internal class InitializeMiddleware : ParsingMiddleware<List<MeMangaItem>, MeSource>
+{
+    public InitializeMiddleware(IConfiguration config) =>
+        _config = config;
+
+    private readonly IConfiguration _config;
+
+    public override async Task ProcessAsync(List<MeMangaItem> toProcess)
+    {
+        var helper = Context.ServiceProvider.GetService<QueryHelper>();
+        await Context.Source.AuthorizeAsync();
+
+        Context.Services.AddSingleton<IHtmlParser, HtmlParser>();
+
+        await InvokeNextAsync(toProcess);
+    }
+}
+```
+
+### Feature 2.0 - in process
+
+Не стоит забывать, что главной идеей данной библиотеки, в первую очередь, является возможность обеспечение удобства выгрузки контента с сайтов, файлов и чего угодно. И одним из аспектов этому препятствующим является обработка ошибок. Чтобы не раздувать Ваших посредников-обработчиков я думаю над возможностью обработки полученных в результате работы исключений, которые могут быть обработаны другими обработчиками, либо же обработчиком, в котором произошло само исключение
+
 ## References
 
 * [Проект, используемый в примере](https://github.com/Sparrow1488/Sparrow.Parsing.Utils/tree/master/Examples/Sparrow.Parsing.Example)
