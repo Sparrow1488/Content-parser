@@ -1,4 +1,6 @@
-﻿using Sparrow.Parsing.Example.Nude.Entities;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Sparrow.Parsing.Example.Nude.Entities;
+using Sparrow.Parsing.Example.Nude.Helpers;
 using Sparrow.Parsing.Example.Nude.Middlewares;
 using Sparrow.Parsing.Example.Nude.Sources;
 using Sparrow.Parsing.Utils;
@@ -17,7 +19,13 @@ namespace Sparrow.Parsing.Example.Nude
             var pipe = new ParsingPipeline<List<NudeMangaItem>, NudeSource>(nudeSource)
                           .Use<InitializeMiddleware>()
                           .Use<PagesParsingMiddleware>()
-                          .Use<PreviewParsingMiddleware>();
+                          .Use<PreviewParsingMiddleware>()
+                          .Use<MangaParsingMiddleware>()
+                          .Use<FilesParsingMiddleware>()
+                          .WithServices(services => 
+                          {
+                              services.AddTransient<QueryHelper>();
+                          });
             var result = await pipe.StartAsync();
         }
 

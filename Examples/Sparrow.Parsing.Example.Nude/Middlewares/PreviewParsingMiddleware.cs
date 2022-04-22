@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Html.Dom;
+using Microsoft.Extensions.DependencyInjection;
 using Sparrow.Parsing.Example.Nude.Entities;
 using Sparrow.Parsing.Example.Nude.Sources;
 using Sparrow.Parsing.Utils;
@@ -23,17 +24,18 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
                 previewCard.Title = cardElement.QuerySelector("h2")?.TextContent;
                 var absoluteLink = cardElement.QuerySelector("td.bg_style1 a")?.GetAttribute("href");
                 previewCard.MainSource = "https://nude-moon.net" + absoluteLink;
-                previewCard.PreviewImage = cardElement.QuerySelector("span.box img.news_pic2")?.GetAttribute("href");
+                previewCard.PreviewImage = cardElement.QuerySelector("span.box img.news_pic2")?.GetAttribute("src");
 
                 if (!string.IsNullOrWhiteSpace(previewCard.Title))
                 {
                     Console.WriteLine(previewCard.Title);
 
+                    Context.Services.AddSingleton(previewCard);
                     await InvokeNextAsync(toProcess);
 
-                    var lastManagaItem = toProcess.LastOrDefault();
-                    if (lastManagaItem != null)
-                        lastManagaItem.Preview = previewCard;
+                    var lastMangaItem = toProcess.LastOrDefault();
+                    if (lastMangaItem != null)
+                        lastMangaItem.Preview = previewCard;
                 }
             }
         }

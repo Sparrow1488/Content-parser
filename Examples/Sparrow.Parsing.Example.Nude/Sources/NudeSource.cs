@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,13 +23,15 @@ namespace Sparrow.Parsing.Example.Nude.Sources
             _httpClient = new HttpClientWrapper();
         }
 
+        private bool _isReceived = false;
         private readonly AccessPermission _access;
         private readonly HttpClientWrapper _httpClient;
         private readonly string _endPoint = "https://nude-moon.net/all_manga";
 
-        public bool IsReceived => throw new NotImplementedException();
-
-        public IEnumerable<IParsingSource> Bindings => throw new NotImplementedException();
+        public bool IsReceived => _isReceived;
+        public string EndPointBase => "https://nude-moon.net";
+        public IEnumerable<IParsingSource> Bindings => Array.Empty<IParsingSource>();
+        public HttpResponseHeaders LastResponseHeaders { get; private set; }
 
         public async Task AuthorizeAsync()
         {
@@ -43,14 +46,16 @@ namespace Sparrow.Parsing.Example.Nude.Sources
         public async Task<string> GetPageAsStringAsync(int page) =>
             await SendRequestAsync(_endPoint + "?rowstart=" + (page - 1) * 30);
 
-        private async Task<string> SendRequestAsync(string endpoint)
+        public async Task<string> SendRequestAsync(string endpoint)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
-            var response = await _httpClient.SendAsync(request);
-            var bytes = await response.Content.ReadAsByteArrayAsync();
+            var responseMessage = await _httpClient.SendAsync(request);
+            LastResponseHeaders = responseMessage.Headers;
+            var bytes = await responseMessage.Content.ReadAsByteArrayAsync();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding encoding = Encoding.GetEncoding("windows-1251");
             var text = encoding.GetString(bytes);
+            _isReceived = true;
             return text;
         }
 

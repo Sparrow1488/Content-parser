@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GFmZuuV8QBcMgeRu4r/ZHlX4xtC6CvZ8oysF0z1Tyw9+G6PjyGG8nO58z+FHpQlAkDlsRcXVHRzez+OgDENaaQ==",
+  "dgSpecHash": "PQ5P0i6sQRKXt8YMKwOzmXTOvBWJU1gGbcvqChPX2JC1sH4Q4mf1La48kGA/H0BC4833s45MV2dlAGsksndL6w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\src\\Sparrow.Parsing.Example\\Sparrow.Parsing.Example.csproj",
+  "projectFilePath": "C:\\Users\\aleks\\OneDrive\\Desktop\\Илья\\Repositories\\Sparrow.Parsing.Utils\\Examples\\Sparrow.Parsing.Example.Microsoft\\Sparrow.Parsing.Example.Microsoft.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aleks\\.nuget\\packages\\anglesharp\\0.16.1\\anglesharp.0.16.1.nupkg.sha512",
     "C:\\Users\\aleks\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",

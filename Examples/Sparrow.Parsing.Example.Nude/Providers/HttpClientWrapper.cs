@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,6 +34,7 @@ namespace Sparrow.Parsing.Example.Nude.Providers
 
             using (var client = CreateHttpClient())
             {
+                System.Console.WriteLine("GET => " + request.RequestUri.ToString());
                 message = await client.SendAsync(request, cancellationToken);
             }
             return message;
