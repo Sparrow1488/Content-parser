@@ -1,4 +1,5 @@
-﻿using Sparrow.Parsing.Example.Middlewares;
+﻿using Sparrow.Parsing.Example.Microsoft.Middlewares;
+using Sparrow.Parsing.Example.Middlewares;
 using Sparrow.Parsing.Example.Sources;
 using Sparrow.Parsing.Utils;
 using System;
@@ -12,6 +13,8 @@ namespace Sparrow.Parsing.Example
         {
             var source = new MicrosoftSource("https://www.microsoft.com/ru-ru/");
             var pipe = new ParsingPipeline<MicrosoftEntity, MicrosoftSource>(source)
+                          //.HandleAll<ExceptionHandleMiddleware>()
+                          .HandleAll<ExceptionHandleMiddlewareWithEntity>()
                           .Use<InitializerMiddleware>()
                           .Use<NewsParsingMiddleware>()
                           .Use<ProductsParsingMiddleware>();

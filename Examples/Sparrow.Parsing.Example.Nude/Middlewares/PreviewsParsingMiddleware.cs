@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sparrow.Parsing.Example.Nude.Middlewares
 {
-    internal class PreviewParsingMiddleware : ParsingMiddleware<List<NudeMangaItem>, NudeSource>
+    internal class PreviewsParsingMiddleware : ParsingMiddleware<List<NudeMangaItem>, NudeSource>
     {
         public override async Task ProcessAsync(List<NudeMangaItem> toProcess)
         {

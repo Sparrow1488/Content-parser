@@ -1,0 +1,10 @@
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\bin\Release\netcoreapp3.1\Sparrow.Parsing.Utils.deps.json
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\bin\Release\netcoreapp3.1\Sparrow.Parsing.Utils.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\bin\Release\netcoreapp3.1\Sparrow.Parsing.Utils.pdb
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\obj\Release\netcoreapp3.1\Sparrow.Parsing.Utils.csproj.AssemblyReference.cache
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\obj\Release\netcoreapp3.1\Sparrow.Parsing.Utils.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\obj\Release\netcoreapp3.1\Sparrow.Parsing.Utils.AssemblyInfoInputs.cache
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\obj\Release\netcoreapp3.1\Sparrow.Parsing.Utils.AssemblyInfo.cs
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\obj\Release\netcoreapp3.1\Sparrow.Parsing.Utils.csproj.CoreCompileInputs.cache
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\obj\Release\netcoreapp3.1\Sparrow.Parsing.Utils.dll
+C:\Users\aleks\OneDrive\Desktop\Илья\Repositories\Sparrow.Parsing.Utils\src\Sparrow.Parsing.Utils\obj\Release\netcoreapp3.1\Sparrow.Parsing.Utils.pdb

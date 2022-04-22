@@ -19,11 +19,12 @@ namespace Sparrow.Parsing.Example.Nude
             var pipe = new ParsingPipeline<List<NudeMangaItem>, NudeSource>(nudeSource)
                           .Use<InitializeMiddleware>()
                           .Use<PagesParsingMiddleware>()
-                          .Use<PreviewParsingMiddleware>()
+                          .Use<PreviewsParsingMiddleware>()
                           .Use<MangaParsingMiddleware>()
                           .Use<FilesParsingMiddleware>()
                           .WithServices(services => 
                           {
+                              services.AddSingleton<AccessPermission>(permission => GetAccessPermission());
                               services.AddTransient<QueryHelper>();
                           });
             var result = await pipe.StartAsync();

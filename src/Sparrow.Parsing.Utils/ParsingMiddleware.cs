@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sparrow.Parsing.Utils
 {
@@ -17,8 +21,37 @@ namespace Sparrow.Parsing.Utils
         {
             if (Context.Next != null)
             {
+                await TryToInvokeNextAsync(toProcess);
+            }
+        }
+
+        private async Task TryToInvokeNextAsync(TResult toProcess)
+        {
+            try
+            {
                 Context.Next.Context.Services = Context.Services;
                 await Context.Next.ProcessAsync(toProcess);
+            }
+            catch(Exception ex)
+            {
+                var exceptionHandler = Context.ServiceProvider.GetService<IExceptionHandleMiddlewareBase>();
+                if(exceptionHandler?.CanHandle.Any(x => x.GetType() == ex.GetType()) ?? false)
+                {
+                    await StartExceptionHandleMiddlewareAsync(toProcess, exceptionHandler, ex);
+                }
+            }
+        }
+
+        private async Task StartExceptionHandleMiddlewareAsync(
+            TResult toProcess, IExceptionHandleMiddlewareBase handler, Exception ex)
+        {
+            if (handler is IExceptionHandleMiddleware middlewareHandler)
+            {
+                await middlewareHandler.HandleAsync(ex);
+            }
+            else if (handler is IExceptionHandleMiddlewareWith<TResult> middlewareWithEntity)
+            {
+                await middlewareWithEntity.HandleAsync(ex, toProcess);
             }
         }
 

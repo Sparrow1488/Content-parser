@@ -36,6 +36,13 @@ namespace Sparrow.Parsing.Utils
             return this;
         }
 
+        public ParsingPipeline<TResult, TSource> HandleAll<THandler>()
+            where THandler : IExceptionHandleMiddlewareBase
+        {
+            _middlewaresInitServices.AddSingleton(typeof(IExceptionHandleMiddlewareBase), typeof(THandler));
+            return this;
+        }
+
         public TResult Start() => throw new NotImplementedException();
 
         public async Task<TResult> StartAsync()

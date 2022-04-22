@@ -10,12 +10,6 @@ namespace Sparrow.Parsing.Example.Middlewares
     {
         public override async Task ProcessAsync(MicrosoftEntity toProcess)
         {
-            // получить страничку сайта
-            // произвести авторизацию - получить кукисы
-            // настроить MicrosoftSource, чтобы не было проблем с получением данных
-            // получить данные и сохранить их в (абстрактно) контекст для передачи его в другие middlewares
-            // короче подготовить почву и смачно вывалить все в контекст
-
             var sourceText = await Context.Source.GetTextAsync();
             var parser = new HtmlParser();
             var document = await parser.ParseDocumentAsync(sourceText);

@@ -10,6 +10,8 @@ namespace Sparrow.Parsing.Example.Middlewares
     {
         public override async Task ProcessAsync(MicrosoftEntity toProcess)
         {
+            throw new ArgumentException("Че то пошло не так");
+
             toProcess.Guid = Guid.NewGuid();
 
             var document = (IHtmlDocument)Context.ServiceProvider.GetService(typeof(IHtmlDocument));
