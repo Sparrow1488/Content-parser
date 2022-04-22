@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Sparrow.Parsing.Utils.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ namespace Sparrow.Parsing.Utils
 {
     public abstract class ParsingMiddleware<TResult, TSource>
     {
-        protected MiddlewareContext<TResult, TSource> Context { get; private set; }
+        public MiddlewareContext<TResult, TSource> Context { get; private set; }
 
         public virtual void Process(TResult toProcess) => ProcessAsync(toProcess).ConfigureAwait(false);
         public abstract Task ProcessAsync(TResult toProcess);
@@ -34,7 +34,8 @@ namespace Sparrow.Parsing.Utils
             }
             catch(Exception ex)
             {
-                var exceptionHandler = Context.ServiceProvider.GetService<IExceptionHandleMiddlewareBase>();
+                Context.Status = ExecutionStatus.NotHandleError;
+                var exceptionHandler = Context.HostServiceProvider.GetService<IExceptionHandleMiddlewareBase>();
                 if(exceptionHandler?.CanHandle.Any(x => x.GetType() == ex.GetType()) ?? false)
                 {
                     await StartExceptionHandleMiddlewareAsync(toProcess, exceptionHandler, ex);
@@ -48,10 +49,12 @@ namespace Sparrow.Parsing.Utils
             if (handler is IExceptionHandleMiddleware middlewareHandler)
             {
                 await middlewareHandler.HandleAsync(ex);
+                Context.Status = ExecutionStatus.HandleError;
             }
             else if (handler is IExceptionHandleMiddlewareWith<TResult> middlewareWithEntity)
             {
                 await middlewareWithEntity.HandleAsync(ex, toProcess);
+                Context.Status = ExecutionStatus.HandleError;
             }
         }
 

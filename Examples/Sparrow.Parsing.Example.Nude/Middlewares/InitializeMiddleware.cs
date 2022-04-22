@@ -19,8 +19,6 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
             logger.LogInformation(nameof(InitializeMiddleware) + " инициализацию закончил");
 
             await InvokeNextAsync(toProcess);
-
-            logger.LogInformation(nameof(InitializeMiddleware) + " инициализацию закончил");
         }
     }
 }

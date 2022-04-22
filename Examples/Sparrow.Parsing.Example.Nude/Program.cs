@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using Sparrow.Parsing.Example.Nude.Entities;
-using Sparrow.Parsing.Example.Nude.Helpers;
 using Sparrow.Parsing.Example.Nude.Middlewares;
 using Sparrow.Parsing.Example.Nude.Providers;
 using Sparrow.Parsing.Example.Nude.Sources;
 using Sparrow.Parsing.Utils;
+using Sparrow.Parsing.Utils.Enums;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -15,7 +16,7 @@ namespace Sparrow.Parsing.Example.Nude
 {
     internal class Program
     {
-        private static async Task Main()
+        private static async Task<int> Main()
         {
             ConfigureLogger();
             var pipe = new ParsingPipeline<List<NudeMangaItem>, NudeSource>()
@@ -26,13 +27,15 @@ namespace Sparrow.Parsing.Example.Nude
                           .Use<MangaParsingMiddleware>()
                           .Use<FilesParsingMiddleware>()
                           .OnHostBuilding(host => host.UseSerilog())
-                          .WithServices(services => 
+                          .WithServices(services =>
                           {
                               services.AddSingleton<HttpClientWrapper>();
                               services.AddSingleton(permission => GetAccessPermission());
-                              services.AddTransient<QueryHelper>();
                           });
             var result = await pipe.StartAsync();
+            if (result.Status == ExecutionStatus.Ok)
+                return 0;
+            else return 1;
         }
 
         private static AccessPermission GetAccessPermission()
@@ -47,7 +50,7 @@ namespace Sparrow.Parsing.Example.Nude
         {
             Log.Logger = new LoggerConfiguration()
                         .MinimumLevel.Debug()
-                        .WriteTo.Console()
+                        .WriteTo.Console(theme: AnsiConsoleTheme.Code)
                         .CreateLogger();
         }
     }

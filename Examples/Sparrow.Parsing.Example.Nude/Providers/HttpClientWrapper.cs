@@ -38,7 +38,7 @@ namespace Sparrow.Parsing.Example.Nude.Providers
 
             using (var client = CreateHttpClient())
             {
-                _logger?.LogInformation("GET => " + request.RequestUri.ToString());
+                _logger?.LogDebug("GET => " + request.RequestUri.ToString());
                 message = await client.SendAsync(request, cancellationToken);
             }
             return message;

@@ -3,6 +3,7 @@ using AngleSharp.Html.Parser;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sparrow.Parsing.Example.Nude.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,8 +27,12 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
                 document = await parser.ParseDocumentAsync(html);
                 Context.Services.AddSingleton(document);
 
-                logger.LogInformation($"Обрабатываемс {i}/{totalPages}");
+                throw new Exception("Че произошло?");
+
+                logger.LogInformation($"Обрабатываем страницу {i}/{totalPages}");
                 await InvokeNextAsync(toProcess);
+                WriteInfo(toProcess);
+                await Task.Delay(TimeSpan.FromSeconds(3));
             }
         }
 
@@ -38,6 +43,14 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
             var lastPage = currentAndLastPages.Last();
             lastPage = lastPage.Trim();
             return int.Parse(lastPage);
+        }
+
+        private void WriteInfo(List<NudeMangaItem> toProcess)
+        {
+            Console.WriteLine();
+            logger?.LogDebug("Итого: " + toProcess.Count);
+            logger?.LogDebug("Без изображений: " + toProcess.Count(x => !x?.Images?.Any() ?? false));
+            logger?.LogDebug("С изображениями: " + toProcess.Count(x => x?.Images?.Any() ?? false));
         }
     }
 }

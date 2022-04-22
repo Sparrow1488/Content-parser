@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sparrow.Parsing.Utils.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,8 @@ namespace Sparrow.Parsing.Utils
             _middlewares = new List<ParsingMiddleware<TResult, TSource>>();
         }
 
-        private TSource _source;
         private IHost _host;
+        private TSource _source;
         private readonly IHostBuilder _hostBuilder;
         private readonly List<Type> _middlewaresTypes;
         private IList<ParsingMiddleware<TResult, TSource>> _middlewares;
@@ -27,7 +28,6 @@ namespace Sparrow.Parsing.Utils
             where TMiddleware : ParsingMiddleware<TResult, TSource>
         {
             _middlewaresTypes.Add(typeof(TMiddleware));
-            //_hostBuilder.ConfigureServices(services => services.AddSingleton<TMiddleware>());
             return this;
         }
 
@@ -56,8 +56,9 @@ namespace Sparrow.Parsing.Utils
 
         public TResult Start() => throw new NotImplementedException();
 
-        public async Task<TResult> StartAsync()
+        public async Task<PipelineExecutionResult<TResult>> StartAsync()
         {
+            var result = new PipelineExecutionResult<TResult>();
             InitializePipeline();
             var resultEntity = Activator.CreateInstance<TResult>();
             for (int i = 0; i < _middlewares.Count; i++)
@@ -69,24 +70,28 @@ namespace Sparrow.Parsing.Utils
                 else context = new MiddlewareContext<TResult, TSource>(null, _source);
 
                 context.Services = new ServiceCollection();
+                context.HostServiceProvider = _host.Services;
                 currentMiddleware.SetContext(context);
             }
 
             var firstMiddleware = _middlewares.First();
             await firstMiddleware.ProcessAsync(resultEntity);
-            return resultEntity;
+
+            result.Status = GetStatus();
+            result.Content = resultEntity;
+            return result;
         }
 
         private void InitializePipeline()
         {
-            var host = _hostBuilder.Build();
+            _host = _hostBuilder.Build();
             foreach (var type in _middlewaresTypes)
             {
-                var instance = (ParsingMiddleware<TResult, TSource>)ActivatorUtilities.CreateInstance(host.Services, type);
+                var instance = (ParsingMiddleware<TResult, TSource>)ActivatorUtilities.CreateInstance(_host.Services, type);
                 _middlewares.Add(instance);
             }
 
-            _source = ActivatorUtilities.CreateInstance<TSource>(host.Services);
+            _source = ActivatorUtilities.CreateInstance<TSource>(_host.Services);
         }
 
         private bool HasNext(int current, int total)
@@ -94,6 +99,18 @@ namespace Sparrow.Parsing.Utils
             if (current + 1 < total)
                 return true;
             return false;
+        }
+
+        private ExecutionStatus GetStatus()
+        {
+            ExecutionStatus status = ExecutionStatus.NotHandleError;
+            if (_middlewares.All(x => x.Context.Status == ExecutionStatus.Ok))
+                status = ExecutionStatus.Ok;
+            if (_middlewares.Any(x => x.Context.Status == ExecutionStatus.HandleError))
+                status = ExecutionStatus.HandleError;
+            if (_middlewares.Any(x => x.Context.Status == ExecutionStatus.NotHandleError))
+                status = ExecutionStatus.NotHandleError;
+            return status;
         }
     }
 }

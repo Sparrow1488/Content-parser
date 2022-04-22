@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Sparrow.Parsing.Utils.Enums;
 using System;
 
 namespace Sparrow.Parsing.Utils
@@ -17,6 +18,9 @@ namespace Sparrow.Parsing.Utils
         public ParsingMiddleware<TResult, TSource> Next { get; }
         public IServiceCollection Services { get; internal set; }
         public IServiceProvider ServiceProvider => Services.BuildServiceProvider();
+        internal IServiceProvider HostServiceProvider { get; set; }
         public TSource Source { get; internal set; }
+
+        internal ExecutionStatus Status { get; set; } = ExecutionStatus.Ok;
     }
 }
