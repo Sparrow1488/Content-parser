@@ -16,7 +16,6 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
 
         public override async Task ProcessAsync(List<NudeMangaItem> toProcess)
         {
-            throw new ArgumentException();
             var html = await Context.Source.GetTextAsync();
             var parser = Context.ServiceProvider.GetService<IHtmlParser>();
             var document = await parser.ParseDocumentAsync(html);

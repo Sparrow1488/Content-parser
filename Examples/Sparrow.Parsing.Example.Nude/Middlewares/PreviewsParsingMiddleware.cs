@@ -28,16 +28,27 @@ namespace Sparrow.Parsing.Example.Nude.Middlewares
 
                 if (!string.IsNullOrWhiteSpace(previewCard.Title))
                 {
-                    logger.LogInformation(previewCard.Title);
-
                     Context.Services.AddSingleton(previewCard);
                     await InvokeNextAsync(toProcess);
 
                     var lastMangaItem = toProcess.LastOrDefault();
                     if (lastMangaItem != null)
                         lastMangaItem.Preview = previewCard;
+
+                    if (lastMangaItem.Images?.Any() ?? false)
+                        logger.LogInformation(MakeTitlePrintable(lastMangaItem.Preview.Title));
+                    else logger.LogWarning(MakeTitlePrintable(lastMangaItem.Preview.Title));
                 }
             }
+        }
+
+        private string MakeTitlePrintable(string title)
+        {
+            var titleChapters = title.Split("/");
+            var firstChapter = titleChapters.FirstOrDefault()?.Trim();
+            if (string.IsNullOrWhiteSpace(firstChapter))
+                return "unknown";
+            return firstChapter;
         }
     }
 }
