@@ -36,10 +36,12 @@ namespace Sparrow.Parsing.Utils
             {
                 Context.Status = ExecutionStatus.NotHandleError;
                 var exceptionHandler = Context.HostServiceProvider.GetService<IExceptionHandleMiddlewareBase>();
-                if(exceptionHandler?.CanHandle.Any(x => x.GetType() == ex.GetType()) ?? false)
+                if(exceptionHandler?.CanHandle?.Any(x => x.GetType() == ex.GetType() || 
+                                                    x.GetType().IsAssignableFrom(ex.GetType())) ?? false)
                 {
                     await StartExceptionHandleMiddlewareAsync(toProcess, exceptionHandler, ex);
                 }
+                Context.Exception = ex;
             }
         }
 

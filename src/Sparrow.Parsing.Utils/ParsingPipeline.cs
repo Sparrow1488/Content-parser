@@ -79,6 +79,7 @@ namespace Sparrow.Parsing.Utils
 
             result.Status = GetStatus();
             result.Content = resultEntity;
+            result.Exception = GetException();
             return result;
         }
 
@@ -111,6 +112,12 @@ namespace Sparrow.Parsing.Utils
             if (_middlewares.Any(x => x.Context.Status == ExecutionStatus.NotHandleError))
                 status = ExecutionStatus.NotHandleError;
             return status;
+        }
+
+        private Exception GetException()
+        {
+            var withException = _middlewares.FirstOrDefault(x => x.Context.Exception != null);
+            return withException?.Context?.Exception;
         }
     }
 }

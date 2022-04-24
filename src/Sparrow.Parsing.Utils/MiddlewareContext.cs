@@ -22,5 +22,6 @@ namespace Sparrow.Parsing.Utils
         public TSource Source { get; internal set; }
 
         internal ExecutionStatus Status { get; set; } = ExecutionStatus.Ok;
+        internal Exception Exception { get; set; }
     }
 }

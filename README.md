@@ -47,23 +47,32 @@ public virtual void Process(TResult toProcess) =>
 public abstract Task ProcessAsync(TResult toProcess);
 ```
 
-### Features 1.0
+### Features 1.0 & 1.1
 
 И наконец то появилась возможность внедрения зависимостей в собственные `ParsingMiddlewares`
 
 ```C#
-var nudeSource = new MeSource();
-var pipe = new ParsingPipeline<List<MeMangaItem>, MeSource>(meSource)
-              .Use<InitializeMiddleware>()
-              .Use<PagesParsingMiddleware>()
-              .Use<PreviewsParsingMiddleware>()
-              .Use<MangaParsingMiddleware>()
-              .Use<FilesParsingMiddleware>()
-              .WithServices(services => 
-              { 
-                  services.AddTransient<QueryHelper>(); 
-              });
-var result = await pipe.StartAsync();
+private static async Task<int> Main()
+{
+    ConfigureLogger();
+    var pipe = new ParsingPipeline<List<MeMangaItem>, MeSource>()
+        .HandleAll<ExceptionHandleMiddleware>()
+        .Use<InitializeMiddleware>()
+        .Use<PagesParsingMiddleware>()
+        .Use<PreviewsParsingMiddleware>()
+        .Use<MangaParsingMiddleware>()
+        .Use<FilesParsingMiddleware>()
+        .OnHostBuilding(host => host.UseSerilog())
+        .WithServices(services => 
+		{
+			services.AddSingleton<HttpClientWrapper>();
+			services.AddSingleton(permission => GetAccessPermission());
+		});
+    var result = await pipe.StartAsync();
+    if (result.Status == ExecutionStatus.Ok)
+        return 0;
+    else return 1;
+}
 ```
 
 ```C#
@@ -85,6 +94,36 @@ internal class InitializeMiddleware : ParsingMiddleware<List<MeMangaItem>, MeSou
     }
 }
 ```
+
+Для внедрения зависимостей используется метод `OnHostBuilding()` и `WithServices()`. Для того, чтобы пользоваться DI внутри middlewares необходимо зависимости внедрять внутри самих Middlewares, используя:
+
+```C#
+Context.Services.AddSingleton<IService, Service>();
+```
+
+Поскольку используются 2 разных ServiceContainer при инициализации Middleware и при использовании внутри них.
+
+Также после выполнения парсинга в результате выполнения `pipe.StartAsync()` будет получен объект типа `PipelineExecutionResult<TResult>`, имеющий следующую структуру:
+
+```C#
+public class PipelineExecutionResult<TResult>
+{
+    internal PipelineExecutionResult() { }
+
+    public TResult Content { get; internal set; }
+    public ExecutionStatus Status { get; internal set; }
+}
+```
+
+Используя для валидации результирующих данных, воспользуйтесь `ExecutionStatus`
+
+```C#
+ExecutionStatus Ok;
+ExecutionStatus HandleError;
+ExecutionStatus NotHandleError;
+```
+
+Он сообщит, по какой причине был получен результат и было ли это обработано, либо же нет.
 
 ### Feature 2.0 - in process
 

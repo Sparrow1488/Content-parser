@@ -1,4 +1,5 @@
 ﻿using Sparrow.Parsing.Utils.Enums;
+using System;
 
 namespace Sparrow.Parsing.Utils
 {
@@ -8,5 +9,6 @@ namespace Sparrow.Parsing.Utils
 
         public TResult Content { get; internal set; }
         public ExecutionStatus Status { get; internal set; }
+        public Exception Exception { get; set; }
     }
 }
